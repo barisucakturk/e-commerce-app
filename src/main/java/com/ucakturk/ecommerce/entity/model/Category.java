@@ -8,7 +8,6 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @AllArgsConstructor
-@NoArgsConstructor
 @Data
 public class Category {
 
@@ -18,8 +17,9 @@ public class Category {
     private List<Product> productList;
 
     public Category(String title) {
-        campaignList = new ArrayList<>();
-        productList = new ArrayList<>();
+        this.title = title;
+     //   campaignList = new ArrayList<>();
+       productList = new ArrayList<>();
     }
 
     public void addProduct(Product product){
