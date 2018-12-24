@@ -17,7 +17,7 @@ public class DeliveryCostCalculator {
         this.fixedCost = deliveryCostRuleConfig.getFixedCost();
     }
 
-    public BigDecimal calcualteDeliveryCost(ShoppingCart cart) {
+    public BigDecimal calculateDeliveryCost(ShoppingCart cart) {
         long numberOfDeliveries = cart.getProducts().keySet().stream().map(Product::getCategory).distinct().count();
         return costPerDelivery.multiply(BigDecimal.valueOf(numberOfDeliveries))
             .add(costPerProduct.multiply(BigDecimal.valueOf(cart.getProducts().size()))).add(fixedCost);

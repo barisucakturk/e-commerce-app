@@ -12,11 +12,11 @@ public class CouponEngine {
 
     public BigDecimal calculateCoupon(BigDecimal totalAmount, BigDecimal amount, Coupon coupon) {
         BigDecimal discountValue = BigDecimal.ZERO;
-        if (amount.compareTo(coupon.getPrice()) > 0) {
+        if (totalAmount.compareTo(coupon.getPrice()) > 0) {
             if (coupon.getDiscount().getDiscountType() == DiscountType.RATE) {
                 discountValue = amount.multiply(coupon.getDiscount().getDiscountAmount()).divide(hundred, MathContext.DECIMAL32);
             } else if (coupon.getDiscount().getDiscountType() == DiscountType.AMOUNT) {
-                discountValue = totalAmount.multiply(coupon.getDiscount().getDiscountAmount());
+                discountValue = amount.multiply(coupon.getDiscount().getDiscountAmount());
             }
         }
 

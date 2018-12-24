@@ -60,7 +60,7 @@ public class ShoppingCart {
     }
 
     public BigDecimal calculateDeliveryCost() {
-        deliveryCosts = deliveryCostCalculator.calcualteDeliveryCost(this);
+        deliveryCosts = deliveryCostCalculator.calculateDeliveryCost(this);
         return deliveryCosts;
     }
 
