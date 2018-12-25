@@ -24,6 +24,7 @@ public class DiscountEngine {
             if (!category.getCampaignList().isEmpty()) {
                 discountCampaigns =
                     category.getCampaignList().stream().map(Campaign::getDiscountCampaign).collect(Collectors.toList());
+                break;
             } else {
                 category = category.getParentCategory();
             }
@@ -46,7 +47,7 @@ public class DiscountEngine {
                         .divide(hundred, MathContext.DECIMAL32);
                     discountValues.add(discountValue);
                 } else if (discountCampaign.getDiscountType() == DiscountType.AMOUNT) {
-                    discountValue = discountCampaign.getAmount().multiply(discountCampaign.getDiscountAmount());
+                    discountValue = amount.multiply(discountCampaign.getDiscountAmount());
                     discountValues.add(discountValue);
                 }
             }
