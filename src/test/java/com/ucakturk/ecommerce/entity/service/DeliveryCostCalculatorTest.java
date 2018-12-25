@@ -3,6 +3,7 @@ package com.ucakturk.ecommerce.entity.service;
 import com.ucakturk.ecommerce.entity.model.Category;
 import com.ucakturk.ecommerce.entity.model.DeliveryCostRuleConfig;
 import com.ucakturk.ecommerce.entity.model.Product;
+
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.InOrder;
@@ -27,7 +28,7 @@ public class DeliveryCostCalculatorTest {
 
     private ShoppingCart shoppingCart;
 
-    private Map<Product,Integer> products;
+    private Map<Product, Integer> products;
 
     private Product apple;
 
@@ -38,19 +39,19 @@ public class DeliveryCostCalculatorTest {
     private BigDecimal result;
 
     @Before
-    public void setUp(){
+    public void setUp() {
         MockitoAnnotations.initMocks(this);
         shoppingCart = new ShoppingCart();
         products = new HashMap<>();
         food = new Category("food");
         electronics = new Category("electronics");
-        apple = new Product("Apple",BigDecimal.TEN,food);
+        apple = new Product("Apple", BigDecimal.TEN, food);
     }
 
     @Test
     public void calculateDeliveryCost_ShouldReturnDeliveryCost_WhenThereIsOneCategory() {
         //given
-        products.put(apple,2);
+        products.put(apple, 2);
         shoppingCart.setProducts(products);
         //when
         when(deliveryCostRuleConfig.getCostPerDelivery()).thenReturn(BigDecimal.ONE);
@@ -59,21 +60,19 @@ public class DeliveryCostCalculatorTest {
         deliveryCostCalculator = new DeliveryCostCalculator(deliveryCostRuleConfig);
         //then
         result = deliveryCostCalculator.calculateDeliveryCost(shoppingCart);
-        assertEquals(BigDecimal.valueOf(14),result);
+        assertEquals(BigDecimal.valueOf(14), result);
 
         InOrder inOrder = Mockito.inOrder(deliveryCostRuleConfig);
-        inOrder.verify(deliveryCostRuleConfig, times(1))
-                .getCostPerDelivery();
+        inOrder.verify(deliveryCostRuleConfig, times(1)).getCostPerDelivery();
 
     }
-
 
     @Test
     public void calculateDeliveryCost_ShouldReturnDeliveryCost_WhenThereAreMoreCategory() {
         //given
-        Product computer = new Product("computer",BigDecimal.valueOf(27),electronics);
-        products.put(computer,12);
-        products.put(apple,2);
+        Product computer = new Product("computer", BigDecimal.valueOf(27), electronics);
+        products.put(computer, 12);
+        products.put(apple, 2);
         shoppingCart.setProducts(products);
         //when
         when(deliveryCostRuleConfig.getCostPerDelivery()).thenReturn(BigDecimal.valueOf(7));
@@ -82,15 +81,12 @@ public class DeliveryCostCalculatorTest {
         deliveryCostCalculator = new DeliveryCostCalculator(deliveryCostRuleConfig);
         //then
         result = deliveryCostCalculator.calculateDeliveryCost(shoppingCart);
-        assertEquals(BigDecimal.valueOf(46),result);
+        assertEquals(BigDecimal.valueOf(46), result);
 
         InOrder inOrder = Mockito.inOrder(deliveryCostRuleConfig);
-        inOrder.verify(deliveryCostRuleConfig, times(1))
-                .getCostPerDelivery();
-        inOrder.verify(deliveryCostRuleConfig, times(1))
-                .getCostPerProduct();
-        inOrder.verify(deliveryCostRuleConfig, times(1))
-                .getFixedCost();
+        inOrder.verify(deliveryCostRuleConfig, times(1)).getCostPerDelivery();
+        inOrder.verify(deliveryCostRuleConfig, times(1)).getCostPerProduct();
+        inOrder.verify(deliveryCostRuleConfig, times(1)).getFixedCost();
         inOrder.verifyNoMoreInteractions();
 
     }

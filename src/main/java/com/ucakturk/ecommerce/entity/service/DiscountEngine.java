@@ -13,9 +13,6 @@ import com.ucakturk.ecommerce.entity.model.Category;
 import com.ucakturk.ecommerce.entity.model.DiscountCampaign;
 import com.ucakturk.ecommerce.entity.model.Product;
 
-import lombok.extern.slf4j.Slf4j;
-
-@Slf4j
 public class DiscountEngine {
 
     private BigDecimal hundred = BigDecimal.valueOf(100);
@@ -25,14 +22,10 @@ public class DiscountEngine {
         List<DiscountCampaign> discountCampaigns = new ArrayList<>();
         while (category != null) {
             if (!category.getCampaignList().isEmpty()) {
-                if (category.getCampaignList().size() > 0) {
-                    discountCampaigns = category.getCampaignList()
-                        .stream()
-                        .map(Campaign::getDiscountCampaign)
-                        .collect(Collectors.toList());
-                } else {
-                    category = category.getParentCategory();
-                }
+                discountCampaigns =
+                    category.getCampaignList().stream().map(Campaign::getDiscountCampaign).collect(Collectors.toList());
+            } else {
+                category = category.getParentCategory();
             }
             //log
 

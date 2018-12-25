@@ -5,8 +5,9 @@ import java.util.List;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.ToString;
 
+@ToString(exclude = "campaignList")
 @AllArgsConstructor
 @Data
 public class Category {
@@ -18,15 +19,15 @@ public class Category {
 
     public Category(String title) {
         this.title = title;
-     //   campaignList = new ArrayList<>();
-       productList = new ArrayList<>();
+        campaignList = new ArrayList<>();
+        productList = new ArrayList<>();
     }
 
-    public void addProduct(Product product){
+    public void addProduct(Product product) {
         productList.add(product);
     }
 
-    public void addCampaign(Campaign campaign){
+    public void addCampaign(Campaign campaign) {
         campaignList.add(campaign);
     }
 }

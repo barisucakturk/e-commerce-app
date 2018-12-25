@@ -18,7 +18,7 @@ public class CouponEngineTest {
     private BigDecimal result;
 
     @org.junit.Before
-    public void setUp(){
+    public void setUp() {
         couponEngine = new CouponEngine();
         coupon = new Coupon();
         discount = new Discount();
@@ -34,9 +34,9 @@ public class CouponEngineTest {
         totalAmount = BigDecimal.valueOf(9);
         //when
         //then
-        result = couponEngine.calculateCoupon(totalAmount,amount,coupon);
+        result = couponEngine.calculateCoupon(totalAmount, amount, coupon);
 
-        assertEquals(BigDecimal.ZERO,result);
+        assertEquals(BigDecimal.ZERO, result);
     }
 
     @org.junit.Test
@@ -50,10 +50,11 @@ public class CouponEngineTest {
         totalAmount = BigDecimal.valueOf(80);
         //when
         //then
-        result = couponEngine.calculateCoupon(totalAmount,amount,coupon);
+        result = couponEngine.calculateCoupon(totalAmount, amount, coupon);
 
-        assertEquals(BigDecimal.ONE,result);
+        assertEquals(BigDecimal.ONE, result);
     }
+
     @org.junit.Test
     public void calculateCoupon_ShouldReturnDiscountValue_WhenAmountGreaterThanConstraintAndDiscountTypeIsAmount() {
         //given
@@ -65,8 +66,8 @@ public class CouponEngineTest {
         totalAmount = BigDecimal.valueOf(50);
         //when
         //then
-        result = couponEngine.calculateCoupon(totalAmount,amount,coupon);
+        result = couponEngine.calculateCoupon(totalAmount, amount, coupon);
 
-        assertEquals(BigDecimal.valueOf(200),result);
+        assertEquals(BigDecimal.valueOf(200), result);
     }
 }
