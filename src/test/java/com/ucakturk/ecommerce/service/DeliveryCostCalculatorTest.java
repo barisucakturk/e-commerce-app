@@ -1,4 +1,4 @@
-package com.ucakturk.ecommerce.entity.service;
+package com.ucakturk.ecommerce.service;
 
 import com.ucakturk.ecommerce.entity.model.Category;
 import com.ucakturk.ecommerce.entity.model.DeliveryCostRuleConfig;

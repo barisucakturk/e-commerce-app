@@ -1,4 +1,4 @@
-package com.ucakturk.ecommerce.entity.service;
+package com.ucakturk.ecommerce.service;
 
 import static org.junit.Assert.assertEquals;
 import static org.mockito.Matchers.any;
@@ -7,8 +7,6 @@ import static org.powermock.api.mockito.PowerMockito.when;
 import static org.powermock.api.mockito.PowerMockito.whenNew;
 
 import java.math.BigDecimal;
-import java.util.HashMap;
-import java.util.Map;
 
 import org.junit.Before;
 import org.junit.Test;

@@ -1,4 +1,4 @@
-package com.ucakturk.ecommerce.entity.service;
+package com.ucakturk.ecommerce.service;
 
 import java.math.BigDecimal;
 import java.math.MathContext;
