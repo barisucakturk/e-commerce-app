@@ -13,6 +13,9 @@ import com.ucakturk.ecommerce.entity.model.Category;
 import com.ucakturk.ecommerce.entity.model.DiscountCampaign;
 import com.ucakturk.ecommerce.entity.model.Product;
 
+import lombok.extern.slf4j.Slf4j;
+
+@Slf4j
 public class DiscountEngine {
 
     private BigDecimal hundred = BigDecimal.valueOf(100);
@@ -26,12 +29,13 @@ public class DiscountEngine {
                     category.getCampaignList().stream().map(Campaign::getDiscountCampaign).collect(Collectors.toList());
                 break;
             } else {
+                log.info(
+                    "There is no category for campaigns in related product. Searching parent category for campaign.");
                 category = category.getParentCategory();
             }
-            //log
-
         }
         if (discountCampaigns.isEmpty()) {
+            log.info("No campaign found.");
             return BigDecimal.ZERO;
         }
 
@@ -39,19 +43,24 @@ public class DiscountEngine {
 
         for (DiscountCampaign discountCampaign : discountCampaigns) {
             if (amount.compareTo(discountCampaign.getAmount()) >= 0) {
+                log.info("Amount {} is greater than minimum amount {}. Discount will be applied", amount,
+                    discountCampaign.getAmount());
                 BigDecimal discountValue;
                 if (discountCampaign.getDiscountType() == DiscountType.RATE) {
+                    log.info("Discount Type for Campaign: {}", discountCampaign.getDiscountType().toString());
                     discountValue = product.getPrice()
                         .multiply(amount)
                         .multiply(discountCampaign.getDiscountAmount())
                         .divide(hundred, MathContext.DECIMAL32);
                     discountValues.add(discountValue);
                 } else if (discountCampaign.getDiscountType() == DiscountType.AMOUNT) {
+                    log.info("Discount Type for Campaign: {}", discountCampaign.getDiscountType().toString());
                     discountValue = amount.multiply(discountCampaign.getDiscountAmount());
                     discountValues.add(discountValue);
                 }
             }
         }
+        log.info("Getting higher discount for Product {}", product.getTitle());
         return discountValues.last();
     }
 }

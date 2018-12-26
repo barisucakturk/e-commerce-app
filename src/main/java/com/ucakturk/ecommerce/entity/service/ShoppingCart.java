@@ -8,7 +8,9 @@ import com.ucakturk.ecommerce.entity.model.Coupon;
 import com.ucakturk.ecommerce.entity.model.Product;
 
 import lombok.Data;
+import lombok.extern.slf4j.Slf4j;
 
+@Slf4j
 @Data
 public class ShoppingCart {
 
@@ -38,6 +40,7 @@ public class ShoppingCart {
         products.putIfAbsent(product, item);
         products.computeIfPresent(product, (p, i) -> products.put(p, i + item));
         totalPrice = totalPrice.add(product.getPrice().multiply(BigDecimal.valueOf(item)));
+        log.info("{} Item(s) {} added ", item, product.getTitle());
     }
 
     public void applyDiscounts() {
@@ -49,6 +52,8 @@ public class ShoppingCart {
 
         totalPriceAppliedDiscount = totalPrice.subtract(totalCampaignDiscounts);
 
+        log.info("Total price after applying necessary discounts is {}", totalPriceAppliedDiscount);
+
     }
 
     public void applyCoupon(Coupon coupon) {
@@ -57,10 +62,13 @@ public class ShoppingCart {
 
         totalPriceAppliedDiscount = totalPrice.subtract(totalCouponDiscounts);
 
+        log.info("Total price after applying necessary coupons is {}", totalPriceAppliedDiscount);
+
     }
 
     public BigDecimal calculateDeliveryCost() {
         deliveryCosts = deliveryCostCalculator.calculateDeliveryCost(this);
+        log.info("Delivery Cost is {}", deliveryCosts);
         return deliveryCosts;
     }
 
