@@ -65,7 +65,7 @@ public class ShoppingCart {
     }
 
     public BigDecimal getTotalAmountAfterDiscounts() {
-        return totalPrice.subtract(totalPriceAppliedDiscount);
+        return totalPriceAppliedDiscount;
     }
 
     public BigDecimal getCampaignDiscount() {

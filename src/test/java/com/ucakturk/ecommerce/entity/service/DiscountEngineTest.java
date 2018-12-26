@@ -5,6 +5,7 @@ import com.ucakturk.ecommerce.entity.model.Campaign;
 import com.ucakturk.ecommerce.entity.model.Category;
 import com.ucakturk.ecommerce.entity.model.DiscountCampaign;
 import com.ucakturk.ecommerce.entity.model.Product;
+
 import org.junit.Before;
 import org.junit.Test;
 
@@ -34,9 +35,8 @@ public class DiscountEngineTest {
 
     private BigDecimal discountResult;
 
-
     @Before
-    public void setUp(){
+    public void setUp() {
         discountEngine = new DiscountEngine();
 
     }
@@ -46,17 +46,17 @@ public class DiscountEngineTest {
         //given
         cost = BigDecimal.TEN;
         food = new Category("food");
-        product = new Product("orange",cost, food);
+        product = new Product("orange", cost, food);
         amount = BigDecimal.valueOf(12);
         discountCampaign1 = new DiscountCampaign();
         discountCampaign1.setAmount(BigDecimal.TEN);
         discountCampaign1.setDiscountType(DiscountType.RATE);
         discountCampaign1.setDiscountAmount(BigDecimal.valueOf(20));
-        campaign1 = new Campaign(food,discountCampaign1);
+        campaign1 = new Campaign(food, discountCampaign1);
         //when
-        discountResult = discountEngine.calculateDiscount(product,amount);
+        discountResult = discountEngine.calculateDiscount(product, amount);
         //then
-        assertEquals(BigDecimal.valueOf(24),discountResult);
+        assertEquals(BigDecimal.valueOf(24), discountResult);
     }
 
     @Test
@@ -64,7 +64,7 @@ public class DiscountEngineTest {
         //given
         cost = BigDecimal.TEN;
         food = new Category("food");
-        product = new Product("orange",cost, food);
+        product = new Product("orange", cost, food);
         amount = BigDecimal.valueOf(12);
         discountCampaign1 = new DiscountCampaign();
         discountCampaign1.setAmount(BigDecimal.TEN);
@@ -74,12 +74,12 @@ public class DiscountEngineTest {
         discountCampaign2.setAmount(BigDecimal.TEN);
         discountCampaign2.setDiscountType(DiscountType.AMOUNT);
         discountCampaign2.setDiscountAmount(BigDecimal.valueOf(3));
-        campaign1 = new Campaign(food,discountCampaign1);
-        campaign1 = new Campaign(food,discountCampaign2);
+        campaign1 = new Campaign(food, discountCampaign1);
+        campaign1 = new Campaign(food, discountCampaign2);
         //when
-        discountResult = discountEngine.calculateDiscount(product,amount);
+        discountResult = discountEngine.calculateDiscount(product, amount);
         //then
-        assertEquals(BigDecimal.valueOf(36),discountResult);
+        assertEquals(BigDecimal.valueOf(36), discountResult);
     }
 
     @Test
@@ -87,12 +87,12 @@ public class DiscountEngineTest {
         //given
         cost = BigDecimal.TEN;
         food = new Category("food");
-        product = new Product("orange",cost, food);
+        product = new Product("orange", cost, food);
         amount = BigDecimal.valueOf(12);
         //when
-        discountResult = discountEngine.calculateDiscount(product,amount);
+        discountResult = discountEngine.calculateDiscount(product, amount);
         //then
-        assertEquals(BigDecimal.ZERO,discountResult);
+        assertEquals(BigDecimal.ZERO, discountResult);
     }
 
     @Test
@@ -101,17 +101,17 @@ public class DiscountEngineTest {
         cost = BigDecimal.TEN;
         food = new Category("food");
         foodParent = new Category("foodParent");
-        product = new Product("orange",cost, food);
+        product = new Product("orange", cost, food);
         food.setParentCategory(foodParent);
         discountCampaign1 = new DiscountCampaign();
         discountCampaign1.setAmount(BigDecimal.TEN);
         discountCampaign1.setDiscountType(DiscountType.AMOUNT);
         discountCampaign1.setDiscountAmount(BigDecimal.valueOf(5));
-        campaign1 = new Campaign(foodParent,discountCampaign1);
+        campaign1 = new Campaign(foodParent, discountCampaign1);
         amount = BigDecimal.valueOf(30);
         //when
-        discountResult = discountEngine.calculateDiscount(product,amount);
+        discountResult = discountEngine.calculateDiscount(product, amount);
         //then
-        assertEquals(BigDecimal.valueOf(150),discountResult);
+        assertEquals(BigDecimal.valueOf(150), discountResult);
     }
 }
